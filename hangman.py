@@ -14,18 +14,30 @@ class Hangman():
         'Cars': ['suzuki'],
     }
 
+
     def __init__(self, debug=False):
 
         self.__debug = debug
+        self.init()
+
+
+    def init(self):
+
         self.__category = self.__get_category()
+        if self.__category is None:
+            print("Thank you for playing")
+            return
         self.__word = self.__get_word()
         self.__lives = 6
         self.__letters = []
         self.__guessed_word = ["_"] * len(self.__word)
         self.__finished = False
+        self.__play()
 
 
     def __get_category(self):
+
+        print("Choose category to play or type exit to leave")
 
         i = 1
         keys = self.__words.keys() if self.__debug else self.__debug_words.keys()
@@ -36,8 +48,12 @@ class Hangman():
         stop = False
         while(not stop):
             try:
-                number = input("Type category number:")
+                inp = None
+                inp = raw_input("Type category number:")
+                number = int(inp)
             except:
+                if inp == "exit":
+                    return None
                 print("Incorrect input, please try again!")
                 continue
 
@@ -74,9 +90,17 @@ class Hangman():
 
         self.__letter = None
         while (self.__letter is None):
-            letter = raw_input()
+            try:
+                letter = raw_input()
+            except:
+                letter = " "
+
+            if letter == 'exit':
+                self.__finished = True
+                return
+
             if len(letter) != 1:
-                print("Only input of size 1 is acceptable!")
+                print("Wrong size of input!")
                 continue
 
             if not letter[0].isalpha():
@@ -94,30 +118,33 @@ class Hangman():
     def __find_occurences(self):
         return [i for i, letter in enumerate(self.__word) if letter == self.__letter]
 
-    def play(self):
+    def __play(self):
 
         while (not self.__finished):
             self.__print()
             self.__get_letter()
 
-            indexes = self.__find_occurences()
-
-            if len(indexes) != 0:
-                for i in indexes:
-                    self.__guessed_word[i] = self.__letter
-                self.__letters.append(self.__letter)
+            if self.__finished:
+                print("Thank you for playing!")
             else:
-                print("You missed!")
-                self.__lives -= 1
-                self.__letters.append(self.__letter)
+                indexes = self.__find_occurences()
 
-            if "".join(self.__guessed_word) == self.__word:
-                self.__finished = True
-                print("Good job! you won! {} was the word!".format(self.__word))
+                if len(indexes) != 0:
+                    for i in indexes:
+                        self.__guessed_word[i] = self.__letter
+                    self.__letters.append(self.__letter)
+                else:
+                    print("You missed!")
+                    self.__lives -= 1
+                    self.__letters.append(self.__letter)
 
-            if self.__lives == 0:
-                self.__finished = True
-                print("You lost! Correct answer: {}".format(self.__word))
+                if "".join(self.__guessed_word) == self.__word:
+                    self.__finished = True
+                    print("Good job! you won! {} was the word!".format(self.__word))
+
+                if self.__lives == 0:
+                    self.__finished = True
+                    print("You lost! Correct answer: {}".format(self.__word))
 
 
 if __name__ == "__main__":
@@ -130,5 +157,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     p = Hangman(args.d)
-    p.play()
 
