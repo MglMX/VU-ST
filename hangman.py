@@ -1,109 +1,134 @@
 import random
-
-words = {
-    'Animals': ['rabbit', 'horse', 'squirel'],
-    'Cars': ['opel', 'tesla', 'lamborghini']
-}
-
-def findOccurences(s, ch):
-    return [i for i, letter in enumerate(s) if letter == ch]
+import argparse
 
 
-print("Hello in Hangman! You will have 6 tries to find a\
-correct word! Which category you want to try?")
+class Hangman():
 
-i = 1
-keys = words.keys()
-for key in keys:
-    print("({}) {}".format(i, key))
-    i += 1
+    __words = {
+        'Animals': ['rabbit', 'horse', 'squirel'],
+        'Cars': ['opel', 'tesla', 'lamborghini']
+    }
 
-stop = False
-while(not stop):
-    try:
-        number = input("Type category number:")
-    except:
-        print("Incorrect input, please try again!")
-        continue
+    __debug_words = {
+        'Animals': ['hippo'],
+        'Cars': ['suzuki'],
+    }
 
-    if type(number) != int:
-        print("Value must be an Integer!")
-        continue
+    def __init__(self, debug=False):
 
-    if number < 1 or number > len(keys):
-        print("Value does not match a category!")
-        continue
+        self.__debug = debug
+        self.__category = self.__get_category()
+        self.__word = self.__get_word()
+        self.__lives = 6
+        self.__letters = []
+        self.__guessed_word = ["_"] * len(self.__word)
+        self.__finished = False
 
-    category = keys[number-1]
-    stop = True
 
-size = len(words[category])
-print("Alright, you chose {} as a category!".format(category))
+    def __get_category(self):
 
-stop = False
-while(not stop):
-    value = raw_input("Choose number between {} ".format(1) + 
-                      "and {} or press r for random word:".format(size))
-    if value == 'r':
-        print("You chose random word, good luck!")
-        stop = True
-        value = random.randint(1, size)
-    else:
-        try:
-            value = int(value)
-        except:
-            print("Incorrect input, please try again!")
-            continue
+        i = 1
+        keys = self.__words.keys() if self.__debug else self.__debug_words.keys()
+        for key in keys:
+            print("({}) {}".format(i, key))
+            i += 1
 
-        if value < 1 or value > size:
-            print("Value out of range, please try again!")
-            continue
-        else:
+        stop = False
+        while(not stop):
+            try:
+                number = input("Type category number:")
+            except:
+                print("Incorrect input, please try again!")
+                continue
+
+            if type(number) != int:
+                print("Value must be an Integer!")
+                continue
+
+            if number < 1 or number > len(keys):
+                print("Value does not match a category!")
+                continue
+
+            category = keys[number-1]
             stop = True
 
-word = words[category][value-1]
-lives = 6
-guessed_word = ["_" for l in word]
-finished = False
-letters = set()
+        return category
 
-while (not finished):
-    print("==============")
-    print("Category: {}".format(category))
-    print("Letters: {}".format(sorted(letters)))
-    print("Lives left: {}".format(lives))
-    print("Word to guess: {}".format(" ".join(guessed_word)))
 
-    letter = raw_input()
-    if len(letter) != 1:
-        print("Only input of size 1 is acceptable!")
-        continue
+    def __get_word(self):
 
-    if not letter[0].isalpha():
-        print("Input is not a letter!")
-        continue
+        if self.__debug:
+            words = self.__debug_words[self.__category]
+        else:
+            words = self.__words[self.__category]
+        return random.choice(words)
 
-    letter = letter.lower()
+    def __print(self):
+        print("==============")
+        print("Category: {}".format(self.__category))
+        print("Letters: {}".format(sorted(self.__letters)))
+        print("Lives left: {}".format(self.__lives))
+        print("Word to guess: {}".format(" ".join(self.__guessed_word)))
 
-    if letter in letters:
-        print("You've already checked for this letter!")
-        continue
+    def __get_letter(self):
 
-    indexes = findOccurences(word, letter)
+        self.__letter = None
+        while (self.__letter is None):
+            letter = raw_input()
+            if len(letter) != 1:
+                print("Only input of size 1 is acceptable!")
+                continue
 
-    if len(indexes) != 0:
-        for i in indexes:
-            guessed_word[i] = letter
-        letters.add(letter)
-    else:
-        print("You missed!")
-        lives = lives - 1
-        letters.add(letter)
+            if not letter[0].isalpha():
+                print("Input is not a letter!")
+                continue
 
-    if "".join(guessed_word) == word:
-        finished = True
-        print("Good job! you won! {} was the word!".format(word))
+            letter = letter.lower()
 
-    if lives == 0:
-        finished = True
-        print("You lost! Correct answer: {}".format(word))
+            if letter in self.__letters:
+                print("You've already checked for this letter!")
+                continue
+
+            self.__letter = letter
+
+    def __find_occurences(self):
+        return [i for i, letter in enumerate(self.__word) if letter == self.__letter]
+
+    def play(self):
+
+        while (not self.__finished):
+            self.__print()
+            self.__get_letter()
+
+            indexes = self.__find_occurences()
+
+            if len(indexes) != 0:
+                for i in indexes:
+                    self.__guessed_word[i] = self.__letter
+                self.__letters.append(self.__letter)
+            else:
+                print("You missed!")
+                self.__lives -= 1
+                self.__letters.append(self.__letter)
+
+            if "".join(self.__guessed_word) == self.__word:
+                self.__finished = True
+                print("Good job! you won! {} was the word!".format(self.__word))
+
+            if self.__lives == 0:
+                self.__finished = True
+                print("You lost! Correct answer: {}".format(self.__word))
+
+
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d",
+                        help="Turn on debug mode (i.e. 1 word per category)",
+                        action='store_true'
+                       )
+    args = parser.parse_args()
+
+    p = Hangman(args.d)
+    p.play()
+
