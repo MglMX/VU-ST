@@ -18,7 +18,6 @@ class Hangman():
     def __init__(self, debug=False):
 
         self.__debug = debug
-        self.init()
 
 
     def init(self):
@@ -157,4 +156,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     p = Hangman(args.d)
+    p.init()
 
