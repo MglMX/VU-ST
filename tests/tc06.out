@@ -1,0 +1,25 @@
+Choose category to play or type exit to leave
+(1) Cars
+(2) Animals
+Type category number:==============
+Category: Animals
+Letters: []
+Lives left: 6
+Word to guess: _ _ _ _ _
+==============
+Category: Animals
+Letters: ['h']
+Lives left: 6
+Word to guess: h _ _ _ _
+==============
+Category: Animals
+Letters: ['h', 'i']
+Lives left: 6
+Word to guess: h i _ _ _
+You missed!
+==============
+Category: Animals
+Letters: ['h', 'i', 'u']
+Lives left: 5
+Word to guess: h i _ _ _
+Thank you for playing!

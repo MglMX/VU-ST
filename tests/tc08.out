@@ -1,0 +1,60 @@
+Choose category to play or type exit to leave
+(1) Cars
+(2) Animals
+Type category number:==============
+Category: Cars
+Letters: []
+Lives left: 6
+Word to guess: _ _ _ _ _ _
+You missed!
+==============
+Category: Cars
+Letters: ['p']
+Lives left: 5
+Word to guess: _ _ _ _ _ _
+You missed!
+==============
+Category: Cars
+Letters: ['p', 't']
+Lives left: 4
+Word to guess: _ _ _ _ _ _
+You missed!
+==============
+Category: Cars
+Letters: ['p', 't', 'w']
+Lives left: 3
+Word to guess: _ _ _ _ _ _
+You missed!
+==============
+Category: Cars
+Letters: ['p', 't', 'w', 'y']
+Lives left: 2
+Word to guess: _ _ _ _ _ _
+You missed!
+==============
+Category: Cars
+Letters: ['c', 'p', 't', 'w', 'y']
+Lives left: 1
+Word to guess: _ _ _ _ _ _
+==============
+Category: Cars
+Letters: ['c', 'p', 's', 't', 'w', 'y']
+Lives left: 1
+Word to guess: s _ _ _ _ _
+==============
+Category: Cars
+Letters: ['c', 'p', 's', 't', 'u', 'w', 'y']
+Lives left: 1
+Word to guess: s u _ u _ _
+==============
+Category: Cars
+Letters: ['c', 'p', 's', 't', 'u', 'w', 'y', 'z']
+Lives left: 1
+Word to guess: s u z u _ _
+You've already checked for this letter!
+==============
+Category: Cars
+Letters: ['c', 'k', 'p', 's', 't', 'u', 'w', 'y', 'z']
+Lives left: 1
+Word to guess: s u z u k _
+Good job! you won! suzuki was the word!

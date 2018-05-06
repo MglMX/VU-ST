@@ -1,0 +1,40 @@
+Choose category to play or type exit to leave
+(1) Cars
+(2) Animals
+Type category number:==============
+Category: Cars
+Letters: []
+Lives left: 6
+Word to guess: _ _ _ _ _ _
+You missed!
+==============
+Category: Cars
+Letters: ['a']
+Lives left: 5
+Word to guess: _ _ _ _ _ _
+You missed!
+==============
+Category: Cars
+Letters: ['a', 'e']
+Lives left: 4
+Word to guess: _ _ _ _ _ _
+You missed!
+==============
+Category: Cars
+Letters: ['a', 'e', 'o']
+Lives left: 3
+Word to guess: _ _ _ _ _ _
+You missed!
+==============
+Category: Cars
+Letters: ['a', 'e', 'o', 't']
+Lives left: 2
+Word to guess: _ _ _ _ _ _
+You missed!
+==============
+Category: Cars
+Letters: ['a', 'e', 'o', 'r', 't']
+Lives left: 1
+Word to guess: _ _ _ _ _ _
+You missed!
+You lost! Correct answer: suzuki

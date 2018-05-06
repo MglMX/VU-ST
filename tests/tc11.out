@@ -1,0 +1,14 @@
+Choose category to play or type exit to leave
+(1) Cars
+(2) Animals
+Type category number:==============
+Category: Cars
+Letters: []
+Lives left: 6
+Word to guess: _ _ _ _ _ _
+==============
+Category: Cars
+Letters: ['u']
+Lives left: 6
+Word to guess: _ u _ u _ _
+Thank you for playing!

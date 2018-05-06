@@ -1,0 +1,16 @@
+Choose category to play or type exit to leave
+(1) Cars
+(2) Animals
+Type category number:==============
+Category: Cars
+Letters: []
+Lives left: 6
+Word to guess: _ _ _ _ _ _
+Input is not a letter!
+Input is not a letter!
+Wrong size of input!
+Wrong size of input!
+Wrong size of input!
+Input is not a letter!
+Wrong size of input!
+Thank you for playing!
